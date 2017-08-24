@@ -1,6 +1,5 @@
 {
-  "name": "aescrypt",
-  "private": true,
+  "name": "coincrypt",
   "version": "1.0.0",
   "description": "",
   "main": "lib/index.js",

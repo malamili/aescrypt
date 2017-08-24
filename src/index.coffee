@@ -6,7 +6,7 @@ wif   = require('wif')
 
 console.log(`'\033[2J'`)               # Clear
 console.log(`'\033[0;0H'`)             # To top
-console.log("COINCrypt".cyan + "\n")
+console.log("CoinCrypt".cyan + "\n")
 
 
 questions =
