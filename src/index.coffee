@@ -51,7 +51,8 @@ engines =
       wif.encode(0x80, decryptedKey.privateKey, decryptedKey.compressed)
 
 
-require('inquirer').prompt((v for k,v of questions)).then((a) ->
-  output = engines[a.method][a.operation](a.input, a.pass)
-  console.log("\n" + output + "\n")
-)
+module.exports = ->
+  require('inquirer').prompt((v for k,v of questions)).then((a) ->
+    output = engines[a.method][a.operation](a.input, a.pass)
+    console.log("\n" + output + "\n")
+  )

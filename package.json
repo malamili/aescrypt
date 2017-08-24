@@ -1,13 +1,24 @@
 {
   "name": "coincrypt",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "",
   "main": "lib/index.js",
-  "author": "Mohamad Alamili",
+  "author": {
+    "name": "Mohamad Alamili",
+    "url": "https://github.com/malamili/coincrypt",
+    "email": "mohamad@sysunite.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/malamili/coincrypt"
+  },
   "license": "MIT",
   "scripts": {
-    "start": "node lib/index.js",
+    "start": "node ./lib/index.js",
     "prepublish": "./node_modules/coffee-script/bin/coffee -o lib -c src"
+  },
+  "bin": {
+   "coincrypt": "./run/run.js"
   },
   "dependencies": {
     "bip38": "^2.0.1",

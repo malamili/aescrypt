@@ -1,6 +1,11 @@
-# How to use
+# Install
 
 ```
-npm install
-npm start
+npm install -g coincrypt
+```
+
+# Run
+
+```
+coincrypt
 ```
