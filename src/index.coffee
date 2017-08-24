@@ -1,36 +1,57 @@
 require('colors')
-AES = require("crypto-js/aes")
 
-console.log(`'\033[2J'`)             # Clear
-console.log(`'\033[0;0H'`)           # To top
-console.log("AESCrypt".cyan + "\n")
+AES   = require("crypto-js/aes")
+bip38 = require('bip38')
+wif   = require('wif')
+
+console.log(`'\033[2J'`)               # Clear
+console.log(`'\033[0;0H'`)             # To top
+console.log("COINCrypt".cyan + "\n")
+
 
 questions =
   1:
+    name: 'method'
+    type: 'list'
+    message: 'Method'
+    choices: ['BIP38', 'AES']
+  2:
     name: 'operation'
     type: 'list'
     message: 'Operation'
     choices: ['Encrypt', 'Decrypt']
-  2:
-    name: 'message'
-    type: 'input'
-    message: 'Message'
-    validate: (input) -> input isnt ''
   3:
+    name: 'input'
+    type: 'input'
+    message: 'Input'
+    validate: (input) -> input isnt ''
+  4:
     name: 'pass'
     type: 'input'
     message: 'Passphrase'
     validate: (input) -> input isnt ''
 
 
-require('inquirer').prompt((v for k,v of questions)).then((answers) ->
+engines =
+  'AES':
+    'Encrypt': (input, passphrase) ->
+      AES.encrypt(input, passphrase).toString().red
 
-  output = ->
-    if answers.operation is 'Encrypt'
-      AES.encrypt(answers.message, answers.pass).toString().red
-    else
-      hex = AES.decrypt(answers.message, answers.pass).toString()
+    'Decrypt': (input, passphrase) ->
+      hex = AES.decrypt(input, passphrase).toString()
       require('buffer').Buffer.from(hex, "hex").toString().green
 
-  console.log("\n" + output() + "\n")
+  'BIP38':
+    'Encrypt': (input, passphrase) ->
+      decoded = wif.decode(input)
+      bip38.encrypt(decoded.privateKey, decoded.compressed, passphrase)
+
+    'Decrypt': (input, passphrase) ->
+      decryptedKey = bip38.decrypt(input, passphrase, (status) -> return)
+      wif.encode(0x80, decryptedKey.privateKey, decryptedKey.compressed)
+
+
+require('inquirer').prompt((v for k,v of questions)).then((a) ->
+  output = engines[a.method][a.operation](a.input, a.pass)
+  console.log("\n" + output + "\n")
 )

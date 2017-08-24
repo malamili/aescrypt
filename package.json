@@ -3,18 +3,19 @@
   "private": true,
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
   "author": "Mohamad Alamili",
   "license": "MIT",
-  "main": "lib/index.js",
   "scripts": {
     "start": "node lib/index.js",
     "prepublish": "./node_modules/coffee-script/bin/coffee -o lib -c src"
   },
   "dependencies": {
+    "bip38": "^2.0.1",
     "coffee-script": "^1.12.7",
     "colors": "^1.1.2",
     "crypto-js": "^3.1.9-1",
-    "inquirer": "^3.2.2"
+    "inquirer": "^3.2.2",
+    "wif": "^2.0.6"
   }
 }
