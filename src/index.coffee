@@ -69,13 +69,17 @@ engines =
       wif.encode(0x80, decryptedKey.privateKey, decryptedKey.compressed)
 
 
-module.exports = ->
+run = ->
   require('inquirer').prompt((v for k,v of questions)).then((a) ->
 
     if a.operation is 'Encrypt' and a.pass_first isnt a.pass_second
-      console.log("Error: The supplied passphrases do not match")
-      return
+      throw new Error("The supplied passphrases do not match")
 
     output = engines[a.method][a.operation](a.input, a.pass_first)
     console.log("\n" + output + "\n")
+    run()
+  ).catch((error) ->
+    console.log "Error: #{error.message}".yellow
   )
+
+module.exports = run
