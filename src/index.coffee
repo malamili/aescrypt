@@ -21,21 +21,21 @@ questions =
     message: 'Operation'
     choices: ['Encrypt', 'Decrypt']
   3:
-    name: 'use_editor'
+    name: 'single_line'
     type: 'confirm'
-    default: false
-    message: 'Use editor for input?'
+    default: true
+    message: 'Is the input a single line?'
   4:
     name: 'input'
     type: 'editor'
     message: 'Input'
-    when: (answers) -> answers.use_editor
+    when: (answers) -> not answers.single_line
     validate: (input) -> input isnt ''
   5:
     name: 'input'
     type: 'input'
     message: 'Input'
-    when: (answers) -> not answers.use_editor
+    when: (answers) -> answers.single_line
     validate: (input) -> input isnt ''
   6:
     name: 'pass_first'
