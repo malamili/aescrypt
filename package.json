@@ -14,7 +14,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "start": "node ./lib/index.js",
+    "start": "node ./run/run.js",
     "prepublish": "./node_modules/coffee-script/bin/coffee -o lib -c src"
   },
   "bin": {
