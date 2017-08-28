@@ -21,14 +21,32 @@ questions =
     message: 'Operation'
     choices: ['Encrypt', 'Decrypt']
   3:
+    name: 'use_editor'
+    type: 'confirm'
+    default: false
+    message: 'Use editor for input?'
+  4:
+    name: 'input'
+    type: 'editor'
+    message: 'Input'
+    when: (answers) -> answers.use_editor
+    validate: (input) -> input isnt ''
+  5:
     name: 'input'
     type: 'input'
     message: 'Input'
+    when: (answers) -> not answers.use_editor
     validate: (input) -> input isnt ''
-  4:
-    name: 'pass'
-    type: 'input'
+  6:
+    name: 'pass_first'
+    type: 'password'
     message: 'Passphrase'
+    validate: (input) -> input isnt ''
+  7:
+    name: 'pass_second'
+    type: 'password'
+    message: 'Passphrase (again)'
+    when: (answers) -> answers.operation is 'Encrypt'
     validate: (input) -> input isnt ''
 
 
@@ -53,6 +71,11 @@ engines =
 
 module.exports = ->
   require('inquirer').prompt((v for k,v of questions)).then((a) ->
-    output = engines[a.method][a.operation](a.input, a.pass)
+
+    if a.operation is 'Encrypt' and a.pass_first isnt a.pass_second
+      console.log("Error: The supplied passphrases do not match")
+      return
+
+    output = engines[a.method][a.operation](a.input, a.pass_first)
     console.log("\n" + output + "\n")
   )
