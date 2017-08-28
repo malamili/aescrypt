@@ -14,7 +14,7 @@ questions =
     name: 'method'
     type: 'list'
     message: 'Method'
-    choices: ['BIP38', 'AES']
+    choices: ['AES', 'BIP38']
   2:
     name: 'operation'
     type: 'list'
