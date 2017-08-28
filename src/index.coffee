@@ -39,12 +39,12 @@ questions =
     validate: (input) -> input isnt ''
   6:
     name: 'pass_first'
-    type: 'password'
+    type: 'input'
     message: 'Passphrase'
     validate: (input) -> input isnt ''
   7:
     name: 'pass_second'
-    type: 'password'
+    type: 'input'
     message: 'Passphrase (again)'
     when: (answers) -> answers.operation is 'Encrypt'
     validate: (input) -> input isnt ''
