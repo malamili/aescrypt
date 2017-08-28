@@ -1,4 +1,5 @@
 require('colors')
+require('pkginfo')(module)
 
 AES   = require("crypto-js/aes")
 bip38 = require('bip38')
@@ -6,8 +7,7 @@ wif   = require('wif')
 
 console.log(`'\033[2J'`)               # Clear
 console.log(`'\033[0;0H'`)             # To top
-console.log("CoinCrypt".cyan + "\n")
-
+console.log("CoinCrypt #{module.exports.version}".cyan + "\n")
 
 questions =
   1:
